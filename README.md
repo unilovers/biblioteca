@@ -1,6 +1,7 @@
 # biblioteca
 
 # Grupo:
+ - Samuel Souza
  - Murilo Choiti Fussuma
  - Fernanda Tozzi Honorio
  - Gustavo Farias Ferreira

@@ -16,26 +16,26 @@ public class BibliotecarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_bibliotecario")
-    private Long cd_bibliotecario;
+    private Long cdBibliotecario;
 
     @Column(name = "nm_bibliotecario")
-    private String nm_bibliotecario;
+    private String nmBibliotecario;
 
     @Column(name = "cd_senha")
-    private String cd_senha;
+    private String cdSenha;
 
     @Column(name = "dt_nascimento")
-    private LocalDateTime dt_nascimento;
+    private LocalDateTime dtNascimento;
 
     @Column(name = "tp_sexo")
-    private char tp_sexo;
+    private char tpSexo;
 
     @Column(name = "ds_email")
-    private String ds_email;
+    private String dsEmail;
 
     @Column(name = "dt_cadastro")
-    private LocalDateTime dt_cadastro;
+    private LocalDateTime dtCadastro;
 
     @Column(name = "sn_ativo")
-    private char sn_ativo;
+    private char snAtivo;
 }

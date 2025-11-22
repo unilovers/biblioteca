@@ -60,4 +60,14 @@ public class BibliotecarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity <?> delete(@PathVariable Long id) {
+        try {
+            repository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,23 +24,39 @@ public class BibliotecarioController {
     @GetMapping
     public ResponseEntity<List<BibliotecarioDTO>> findAll() {
         List<BibliotecarioModel> list = repository.findAll();
-        List<BibliotecarioDTO>  listDTO = new ArrayList<>();
+        List<BibliotecarioDTO> listDTO = new ArrayList<>();
 
         list.forEach(bibliotecarioModel -> {
             listDTO.add(new BibliotecarioDTO(bibliotecarioModel.getCdBibliotecario(),
-                                            bibliotecarioModel.getNmBibliotecario(),
-                                            bibliotecarioModel.getDtNascimento(),
-                                            bibliotecarioModel.getTpSexo()));
+                    bibliotecarioModel.getNmBibliotecario(),
+                    bibliotecarioModel.getDtNascimento(),
+                    bibliotecarioModel.getTpSexo()));
         });
         return ResponseEntity.ok(listDTO);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        try {
+            BibliotecarioModel bibliotecario = repository.findById(id).orElseThrow(() -> {
+                throw new InvalidParameterException("Bibliotecario inexistente!");
+            });
+            return ResponseEntity.ok(new BibliotecarioDTO(bibliotecario.getCdBibliotecario(),
+                                                        bibliotecario.getNmBibliotecario(),
+                                                        bibliotecario.getDtNascimento(),
+                                                        bibliotecario.getTpSexo()));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity save(@RequestBody BibliotecarioModel novoBiblitoecario) {
-        try{
+        try {
             repository.save(novoBiblitoecario);
-            return  ResponseEntity.status(HttpStatus.CREATED).body(novoBiblitoecario);
-        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoBiblitoecario);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

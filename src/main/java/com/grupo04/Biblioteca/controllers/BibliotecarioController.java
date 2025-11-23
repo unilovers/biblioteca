@@ -55,7 +55,7 @@ public class BibliotecarioController {
     public ResponseEntity save(@RequestBody BibliotecarioModel novoBiblitoecario) {
         try {
             repository.save(novoBiblitoecario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoBiblitoecario);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
